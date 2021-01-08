@@ -1,1 +1,14 @@
-
+#include < iostream.h >
+void fun(int a,int b,long *c)
+{
+*c=(a%10)*1000+(b%10)*100+(a/10)*10+(b/10);
+}
+void main()
+{
+int a,b;
+long c;
+printf("请输入a，b的值：");
+scanf("%d%d",&a,&b)
+fun(a,b,&c);
+printf("输出c值：%d",c)
+}
