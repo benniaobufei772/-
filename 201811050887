@@ -12,3 +12,566 @@ scanf("%d%d",&a,&b)
 fun(a,b,&c);
 printf("输出c值：%d",c)
 }
+#include <stdio.h>
+#include <stdlib.h>
+struct num
+{
+    int number;
+    struct num *next;
+};
+int getnumber(int m,int n);
+int getnumber1(int m,int n);
+int main()
+{
+    int m,n;
+	printf("请输入猴子数量：");
+    scanf("%d",&m);
+	printf("请输入报数：");
+	scanf("%d",&n);
+    printf("循环链表：猴王编号为:%d\n\n\n",getnumber(m,n));
+    printf("单向链表：猴王编号为:%d\n",getnumber1(m,n));
+    return 0;
+}
+int getnumber(int m,int n)
+{
+    struct num *p,*p1,*head,*temp;
+    int i=0,flag;
+    p=(struct num*)malloc(sizeof(struct num));
+    head=p;
+    while(i<m)
+    {
+        p1=p;
+        p->number=i+1;
+        p=(struct num*)malloc(sizeof(struct num));
+        p1->next=p;
+        i++;
+    }
+    p1->next=head;     
+    free(p);
+    temp=p1; 
+    i=1;
+    while(i<m)
+    {
+        flag=1;     
+        while(flag<n)
+        {
+            temp=head;
+            head=head->next;
+            flag++;
+        }
+        temp->next=head->next;
+        printf("删除猴子的编号:%d\n",head->number);
+        free(head);
+        head=temp->next;
+        i++;
+    }
+    return head->number;
+}
+
+
+int getnumber1(int m,int n)
+{
+    struct num *p,*p1,*head,*temp;
+    int i=0,flag;
+    p=(struct num*)malloc(sizeof(struct num));
+    head=p;
+    if(n==1)
+        return m;
+    while(i<m)
+    {
+        p1=p;
+        p->number=i+1;
+        p=(struct num*)malloc(sizeof(struct num));
+        p1->next=p;
+        i++;
+    }
+    p1->next=NULL;   
+    p=head;
+    i=0;
+    flag=0;
+    while(i!=m-1)
+    {
+        if(flag==n-1)
+        {
+            printf("删除猴子的编号:%d\n",p->number);
+            if(p==head)   
+            {
+                head=head->next;
+                p=head;
+            }
+            else if(p->next==NULL) 
+            {
+                temp->next=NULL;
+                p=head;
+            }
+            else                   
+            {
+                temp->next=p->next;
+                p=p->next;
+            }
+            i++;
+            flag=0;
+        }
+
+        if(p->next==NULL)
+        {
+            p=head;
+        }
+        else
+        {
+            temp=p;
+            p=p->next;
+        }
+        flag++;
+    }
+    return head->number;
+}
+#include <stdio.h>
+#include <stdlib.h>
+int getcount(int *p,int m,int n);
+int main()
+{
+    int *p;
+    int m,n,i,j,flag,temp;
+    while(1){
+		printf("请输入猴子个数：");
+    scanf("%d",&m);
+		printf("请输入报数：");
+		scanf("%d",&n);
+    p=(int *)malloc(sizeof(int)*m);
+    for(i=0;i<m;i++)
+        p[i]=i+1;
+    printf("猴王的编号%d\n",getcount(p,m,n));
+    }
+    free(p);
+    return 0;
+}
+int getcount(int *p,int m,int n)
+{
+    int i,temp,flag,count;
+    temp=0;
+    count=m;
+     while(count!=1)
+    {
+        flag=1;             
+        while(flag<n)   
+        {
+            if(temp>=m)
+                temp=0;
+            if(p[temp]!=0)
+            {
+                flag++;
+            }
+            temp++;
+        }
+        if(temp>=m)
+            temp=0;
+        while(temp<m&&p[temp]==0)
+            {
+                   temp++;
+                   if(temp>=m)
+                       temp=0;
+            }      
+        p[temp]=0;
+        count-=1;    
+    }
+    for(i=0;i<m;i++)
+    {
+        if(p[i]!=0)
+        {
+            return p[i];
+        }
+    }
+}
+#include<iostream>
+#include<algorithm>
+#include<stdio.h>
+using namespace std;
+
+struct student
+{
+    int num;
+    int sum;
+    int yw;
+    int sx;
+    int yy;
+};
+
+bool cmp(student a,student b)
+{
+    if(a.sum!= b.sum)
+       return a.sum> b.sum;
+    else
+    {
+       if(a.yw!= b.yw)
+           return a.yw> b.yw;
+       else
+           return a.num< b.num;
+    }
+}
+
+int main()
+{
+    int n;
+   printf("请输入n值：");
+   scanf("%d",&n);
+   while(1)
+    {
+       student stu[10000];
+       for(int i = 0;i < n;i++)
+       {
+		   printf("请输入语文，数学，英语成绩：");
+		   scanf("%d%d%d",&stu[i].yw,&stu[i].sx,&stu[i].yy);
+           stu[i].sum=stu[i].yw+stu[i].sx+stu[i].yy;
+           stu[i].num=i+1;;
+       }
+       sort(stu,stu+n,cmp);
+       for(i=0;i<5;i++)
+           cout<<stu[i].num<< " " <<stu[i].sum<<endl;
+       if(cin>>n)
+           cout<<endl ;
+       else break;
+    }
+    return 0;
+}
+#include<iostream.h>
+void main()
+{
+	int M=0,N=0,i,j,c;
+	cout<<"请输入行数M："<<endl;
+	cin>>M;
+	cout<<"请输入列数N: "<<endl;
+	cin>>N;
+    cout<<"请输入病毒周期c:"<<endl;
+	cin>>c;
+	char a[100][100],a1[100][100]={'B'};
+	cout<<"请输入矩阵："<<endl;
+	for(i=0;i<M;i++)
+	{	
+		for(j=0;j<N;j++)
+		{
+			cin>>a[i][j];
+		}
+	}
+	while(c--)
+	{
+		for(i=0;i<M;i++)
+		{
+			for(j=0;j<N;j++)
+			{
+				if(a[i][j]=='X')
+				{
+				a1[i][j]=a[i][j];
+				}
+			}
+		}
+     for(i=0;i<N;i++)
+		{
+			for(j=0;j<M;j++)
+			{
+				if(a[i][j]==a1[i][j])
+				{
+                    if(a[i-1][j] != 'P') a[i-1][j] ='X';	
+					if(a[i+1][j] != 'P') a[i+1][j]='X';
+					if(a[i][j+1] != 'P') a[i][j+1]='X';
+					if(a[i][j-1] != 'P') a[i][j-1]='X';
+				}
+			}
+	 }
+
+	}
+  for(i=0;i<M;i++)
+		{
+			cout<<endl;
+			for(j=0;j<N;j++)
+				cout<<a[i][j];
+		}
+		cout<<endl;
+	
+}
+
+#include <iostream>
+#include <string>
+#include <stack>
+
+using namespace std;
+
+double calculate(string s)
+{
+    stack<double> num;
+    stack<char> op;
+    string temp = "";
+    for(int i = 0; i < s.length(); i++)
+    {
+        if(s[i] >= '0' && s[i] <= '9')
+        {
+            temp += s[i];
+        }
+        if((s[i] < '0' || s[i] > '9') && temp != "")
+        {
+            num.push(atoi(temp.c_str()));
+            temp = "";
+        }
+        if(s[i] == '(' || s[i] == '[' || s[i] == '{')
+        {
+            op.push(s[i]);
+        }
+        if(s[i] == '*' || s[i] == '/')
+        {
+            if(!op.empty())
+            {
+                char lastop = op.top();
+                if(lastop == '/')
+                {
+                    double secondnum = num.top();
+                    num.pop();
+                    double firstnum = num.top();
+                    num.pop();
+                    num.push(firstnum*1.0/secondnum);
+                    op.pop();
+                }
+            }
+            op.push(s[i]);
+        }
+        if(s[i] == '+' || s[i] == '-')
+        {
+            if(i == 0 || s[i-1] == '(' || s[i-1] == '[' || s[i-1] == '{')
+            {
+                num.push(0);
+            }
+            if(!op.empty())
+            {
+                char lastop = op.top();
+                while(!op.empty() && (lastop == '*' || lastop == '/'))
+                {
+                    double secondnum = num.top();
+                    num.pop();
+                    double firstnum = num.top();
+                    num.pop();
+                    if(lastop == '*')
+                        num.push(firstnum*secondnum);
+                    else if(lastop == '/')
+                        num.push(firstnum*1.0/secondnum);
+                    op.pop();
+                    if(!op.empty())
+                        lastop = op.top();
+                }
+                if(lastop == '-')
+                {
+                    double secondnum = num.top();
+                    num.pop();
+                    double firstnum = num.top();
+                    num.pop();
+                    num.push(firstnum-secondnum);
+                    op.pop();
+                }
+            }
+            op.push(s[i]);
+        }
+        if(s[i] == ')')
+        {
+            if(!op.empty())
+            {
+                char lastop = op.top();
+                while(!op.empty() && lastop != '(')
+                {
+                    double secondnum = num.top();
+                    num.pop();
+                    double firstnum = num.top();
+                    num.pop();
+                    switch(lastop)
+                    {
+                        case '+':
+                            num.push(firstnum+secondnum);
+                            break;
+                        case '-':
+                            num.push(firstnum-secondnum);
+                            break;
+                        case '*':
+                            num.push(firstnum*secondnum);
+                            break;
+                        case '/':
+                            num.push(firstnum*1.0/secondnum);
+                            break;
+                    }
+                    op.pop();
+                    if(!op.empty())
+                        lastop = op.top();
+                }
+                if(lastop == '(')
+                    op.pop();
+            }
+        }
+        if(s[i] == ']')
+        {
+            if(!op.empty())
+            {
+                char lastop = op.top();
+                while(!op.empty() && lastop != '[')
+                {
+                    double secondnum = num.top();
+                    num.pop();
+                    double firstnum = num.top();
+                    num.pop();
+                    switch(lastop)
+                    {
+                        case '+':
+                            num.push(firstnum+secondnum);
+                            break;
+                        case '-':
+                            num.push(firstnum-secondnum);
+                            break;
+                        case '*':
+                            num.push(firstnum*secondnum);
+                            break;
+                        case '/':
+                            num.push(firstnum*1.0/secondnum);
+                            break;
+                    }
+                    op.pop();
+                    if(!op.empty())
+                        lastop = op.top();
+                }
+                if(lastop == '[')
+                    op.pop();
+            }
+        }
+        if(s[i] == '}')
+        {
+            if(!op.empty())
+            {
+                char lastop = op.top();
+                while(!op.empty() && lastop != '{')
+                {
+                    double secondnum = num.top();
+                    num.pop();
+                    double firstnum = num.top();
+                    num.pop();
+                    switch(lastop)
+                    {
+                        case '+':
+                            num.push(firstnum+secondnum);
+                            break;
+                        case '-':
+                            num.push(firstnum-secondnum);
+                            break;
+                        case '*':
+                            num.push(firstnum*secondnum);
+                            break;
+                        case '/':
+                            num.push(firstnum*1.0/secondnum);
+                            break;
+                    }
+                    op.pop();
+                    if(!op.empty())
+                        lastop = op.top();
+                }
+                if(lastop == '{')
+                    op.pop();
+            }
+        }
+    }
+    if(temp != "")
+        num.push(atoi(temp.c_str()));
+    while(!op.empty())
+    {
+         char lastop = op.top();
+         double secondnum = num.top();
+         num.pop();
+         double firstnum = num.top();
+         num.pop();
+         switch(lastop)
+         {
+             case '+':
+                 num.push(firstnum+secondnum);
+                 break;
+             case '-':
+                 num.push(firstnum-secondnum);
+                 break;
+             case '*':
+                 num.push(firstnum*secondnum);
+                 break;
+             case '/':
+                 num.push(firstnum*1.0/secondnum);
+                 break;
+         }
+         op.pop();
+    }
+    if(num.empty())
+        return 0;
+    double value = num.top();
+    num.pop();
+    return value;
+}
+
+void test1()
+{
+    string s;
+    while(cin >> s)
+    {
+        cout << calculate(s) << endl;
+    }
+}
+
+int main()
+{
+    test1();
+    return 0;
+}
+#include<iostream>
+using namespace std;
+class vehicle
+{
+protected:
+	int wheels;
+	float weight;
+public:
+	vehicle(int w1, float w2)
+	{
+		wheels = w1;
+		weight = w2;
+	}
+	void printf()
+	{
+		cout << "wheels=" << wheels << "," << "weight=" << "weight" << endl;
+	}
+};
+class car :private vehicle
+{
+	int passenger_load;
+    public:
+		car(int w1,float w2,int p1):vehicle(w1,w2)
+        {
+			passenger_load = p1;
+        }
+		void printf()
+		{
+			vehicle::printf();
+			cout << "passenger_load=" << passenger_load << endl;
+		}
+};
+class truck :private vehicle
+{
+	int passenger_load;
+	float payload;
+public:
+truck(int w1,float w2,int p1,float p2):vehicle(w1,w2)
+{
+	passenger_load = p1;
+	payload = p2;
+}
+void printf()
+{
+	vehicle::printf();
+	cout << "passenger_load=" << passenger_load << "," << "payload=" << payload << endl;
+}
+};
+void main()
+{
+	vehicle v(1000, 842.2);
+	v.printf();
+	car c(134, 94.7, 84);
+	c.printf();
+	truck t(48,29.6,27,19.8);
+	t.printf();
+}
